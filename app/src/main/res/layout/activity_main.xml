@@ -27,6 +27,7 @@
         android:ems="10"
         android:layout_margin="@dimen/_Margin_1"
         android:textSize="@dimen/_EditTextDim"
+        android:gravity="end"
         tools:text="100500"
         android:inputType="numberDecimal"/>
 
