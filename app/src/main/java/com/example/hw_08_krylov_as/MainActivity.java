@@ -20,6 +20,9 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText display;
     private String currentInput = "0";
+
+    private CalculatorState state;
+
     private static final String STATE_CALCULATOR = "calculator_state";
 
     @Override
@@ -32,13 +35,14 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        state = new CalculatorState();
         initView();
     }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle instanceState) {
         super.onSaveInstanceState(instanceState);
-        CalculatorState state = new CalculatorState(currentInput);
+        state.setCurrentInput(currentInput);
         instanceState.putSerializable(STATE_CALCULATOR, state);
     }
 
@@ -47,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         super.onRestoreInstanceState(InstanceState);
         CalculatorState state = (CalculatorState) InstanceState.getSerializable(STATE_CALCULATOR);
         if (state != null) {
+            this.state = state;
             currentInput = state.getCurrentInput();
             display.setText(currentInput);
         }
