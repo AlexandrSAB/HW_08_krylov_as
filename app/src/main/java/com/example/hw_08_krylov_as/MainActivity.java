@@ -19,7 +19,8 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     private EditText display;
-    private String currentInput = "0";
+
+    private TextView displayHistory;
 
     private CalculatorState state;
 
@@ -39,33 +40,17 @@ public class MainActivity extends AppCompatActivity {
         initView();
     }
 
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle instanceState) {
-        super.onSaveInstanceState(instanceState);
-        state.setCurrentInput(currentInput);
-        instanceState.putSerializable(STATE_CALCULATOR, state);
-    }
 
-    @Override
-    protected void onRestoreInstanceState(@NonNull Bundle InstanceState) {
-        super.onRestoreInstanceState(InstanceState);
-        CalculatorState state = (CalculatorState) InstanceState.getSerializable(STATE_CALCULATOR);
-        if (state != null) {
-            this.state = state;
-            currentInput = state.getCurrentInput();
-            display.setText(currentInput);
-        }
-    }
 
 
     private void onNumberButtonClick(String number) {
-        if (currentInput.equals("0")) {
-            currentInput = number;
+        if (state.getCurrentInput().equals("0")) {
+            state.setCurrentInput(number);
         }
         else {
-            currentInput += number;
+            state.setCurrentInput(state.getCurrentInput() + number);
         }
-        display.setText(currentInput);
+        display.setText(state.getCurrentInput());
     }
 
 
@@ -74,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
         ButtonClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentInput = "0";
-                display.setText(currentInput);
+                state.setCurrentInput("0");
+                display.setText(state.getCurrentInput());
             }
         });
     }
@@ -85,13 +70,13 @@ public class MainActivity extends AppCompatActivity {
         buttonBackSpace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!currentInput.isEmpty()){
-                    currentInput = currentInput.substring(0, currentInput.length() - 1);
-                    if (currentInput.isEmpty()) {
-                        currentInput = "0";
+                if (!state.getCurrentInput().isEmpty()){
+                    state.setCurrentInput(state.getCurrentInput().substring(0, state.getCurrentInput().length() - 1));
+                    if (state.getCurrentInput().isEmpty()) {
+                        state.setCurrentInput("0");
                     }
                 }
-                display.setText(currentInput);
+                display.setText(state.getCurrentInput());
             }
         });
     }
@@ -223,10 +208,10 @@ public class MainActivity extends AppCompatActivity {
         buttonPoint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (currentInput.equals("0")) {
+                if (state.getCurrentInput().equals("0")) {
                     onNumberButtonClick("0.");
                 }
-                if (!currentInput.contains(".")) {
+                if (!state.getCurrentInput().contains(".")) {
                     onNumberButtonClick(".");
                 }
             }
@@ -234,8 +219,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle instanceState) {
+        super.onSaveInstanceState(instanceState);
+        instanceState.putSerializable(STATE_CALCULATOR, state);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle InstanceState) {
+        super.onRestoreInstanceState(InstanceState);
+        state = (CalculatorState) InstanceState.getSerializable(STATE_CALCULATOR);
+        setDisplays();
+    }
+
+
+    private void setDisplays() {
+        display.setText(state.getCurrentInput());
+        displayHistory.setText(state.getHistory());
+    }
+
     private void initView() {
         display = findViewById(R.id.editTextNumberDecimal);
+        displayHistory = findViewById(R.id.textViewHistory);
 
         initButtonClearClickListener();
         initButtonBackSpaceClickListener();

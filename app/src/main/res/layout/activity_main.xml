@@ -12,7 +12,7 @@
 
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewHistory"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="@dimen/_Margin_1"

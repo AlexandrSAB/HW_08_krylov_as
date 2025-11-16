@@ -4,9 +4,11 @@ import java.io.Serializable;
 
 class CalculatorState implements Serializable {
     private String currentInput;
+    private String history;
 
     public CalculatorState() {
         this.currentInput = "0";
+        this.history = "";
     }
 
     public String getCurrentInput() {
@@ -15,5 +17,12 @@ class CalculatorState implements Serializable {
 
     public void setCurrentInput(String currentInput) {
         this.currentInput = currentInput;
+    }
+
+    public String getHistory() {
+        return history;
+    }
+    public void setHistory(String history) {
+        this.history = history;
     }
 }
