@@ -222,13 +222,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle instanceState) {
         super.onSaveInstanceState(instanceState);
-        instanceState.putSerializable(STATE_CALCULATOR, state);
+        instanceState.putParcelable(STATE_CALCULATOR, state);
     }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle InstanceState) {
         super.onRestoreInstanceState(InstanceState);
-        state = (CalculatorState) InstanceState.getSerializable(STATE_CALCULATOR);
+        state = InstanceState.getParcelable(STATE_CALCULATOR);
         setDisplays();
     }
 
