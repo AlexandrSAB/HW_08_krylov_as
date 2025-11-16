@@ -3,5 +3,7 @@
     <dimen name="_TextViewDim">40sp</dimen>
     <dimen name="_EditTextDim">50sp</dimen>
     <dimen name="_Margin_1">5sp</dimen>
+    <dimen name="_Margin_2">1sp</dimen>
+    <dimen name="_Margin_3">0sp</dimen>
     <dimen name="_ButtonTextSize">25sp</dimen>
 </resources>
