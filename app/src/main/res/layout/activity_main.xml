@@ -66,6 +66,7 @@
                 android:layout_marginEnd="@dimen/_Margin_1"
                 android:textSize="@dimen/_ButtonTextSize"
                 android:text="@string/Button_c"
+                android:backgroundTint="@color/red"
                 />
 
             <Button
@@ -75,6 +76,7 @@
                 android:layout_marginEnd="@dimen/_Margin_1"
                 android:textSize="@dimen/_ButtonTextSize"
                 android:text="@string/Button_cc"
+                android:backgroundTint="@color/orange"
                 />
 
             <Button

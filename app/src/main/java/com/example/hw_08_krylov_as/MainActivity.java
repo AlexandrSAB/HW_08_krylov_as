@@ -59,6 +59,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onOperationButtonClick(String operation) {
+
+        if (!state.getOperation().equals("none") && state.getIsNewInput() == 1) {
+            state.setOperation(operation);
+            return;
+        }
+
         if (!state.getOperation().equals("none")) {
             calculateResult();
         }
