@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.core.text.HtmlCompat;
 
 import java.util.Locale;
 
@@ -135,10 +136,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         tempHistory = tempHistory + firstNumber +
-                state.getOperation() + secondNumber + " =" + "\n" + "= " +
-                state.getCurrentInput() + "\n" + "\n";
+                state.getOperation() + secondNumber + " =" + "\n" +  "<br>" + "= <b>" +
+                state.getCurrentInput() + "</b>" + "<br><br>" + "\n" + "\n";
         state.setHistory(tempHistory);
-        displayHistory.setText(state.getHistory());
+        displayHistory.setText(HtmlCompat.fromHtml(state.getHistory(), HtmlCompat.FROM_HTML_MODE_LEGACY));
         scrollToBottom();
 
         state.setPreviousNumber(roundedResult);
