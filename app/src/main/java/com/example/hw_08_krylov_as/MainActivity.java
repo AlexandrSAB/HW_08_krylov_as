@@ -197,19 +197,42 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void initButtonPercentClickListener() {
+    private void initButtonSqrtClickListener() {
         Button buttonPercent = findViewById(R.id.buttonPercent);
         buttonPercent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 double result = Double.parseDouble(state.getCurrentInput());
-                result = result / 100;
-                state.setCurrentInput(String.valueOf(result));
+                result = Math.sqrt(result);
+
+                double roundedResult = Math.round(result * 100000000d) / 100000000d;
+
+                if (roundedResult == (int) roundedResult) {
+                    String tempHistory = state.getHistory();
+                    tempHistory = tempHistory + "√" + state.getCurrentInput() +
+                             " =" + "\n" +  "<br>" + "= <b>" +
+                            String.valueOf((int)roundedResult) + "</b>" + "<br><br>" + "\n" + "\n";
+                    state.setHistory(tempHistory);
+                    displayHistory.setText(HtmlCompat.fromHtml(state.getHistory(), HtmlCompat.FROM_HTML_MODE_LEGACY));
+                    scrollToBottom();
+                    state.setCurrentInput(String.valueOf((int)roundedResult));
+                }
+                else {
+                    String tempHistory = state.getHistory();
+                    tempHistory = tempHistory + "√" + state.getCurrentInput() +
+                            " =" + "\n" +  "<br>" + "= <b>" +
+                            String.valueOf(roundedResult) + "</b>" + "<br><br>" + "\n" + "\n";
+                    state.setHistory(tempHistory);
+                    displayHistory.setText(HtmlCompat.fromHtml(state.getHistory(), HtmlCompat.FROM_HTML_MODE_LEGACY));
+                    scrollToBottom();
+                    state.setCurrentInput(String.valueOf(roundedResult));
+                }
                 display.setText(state.getCurrentInput());
                 state.setIsNewInput(1);
             }
         });
     }
+
 
     private void initButtonDivideClickListener() {
         Button buttonDivide = findViewById(R.id.buttonDivide);
@@ -395,7 +418,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setDisplays() {
         display.setText(state.getCurrentInput());
-        displayHistory.setText(state.getHistory());
+        displayHistory.setText(HtmlCompat.fromHtml(state.getHistory(), HtmlCompat.FROM_HTML_MODE_LEGACY));
     }
 
     private void initView() {
@@ -405,7 +428,7 @@ public class MainActivity extends AppCompatActivity {
 
         initButtonClearClickListener();
         initButtonBackSpaceClickListener();
-        initButtonPercentClickListener();
+        initButtonSqrtClickListener();
         initButtonDivideClickListener();
         initButton1ClickListener();
         initButton2ClickListener();

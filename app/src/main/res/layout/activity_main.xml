@@ -85,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/_Margin_1"
                 android:textSize="@dimen/_ButtonTextSize"
-                android:text="@string/Button_per"
+                android:text="@string/Button_sqrt"
                 />
 
             <Button

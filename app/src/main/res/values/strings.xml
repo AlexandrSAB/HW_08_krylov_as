@@ -2,8 +2,8 @@
     <string name="app_name">HW_07_krylov_as</string>
     <string name="Button_c">C</string>
     <string name="Button_cc">⌫</string>
-    <string name="Button_per"><![CDATA[%]]></string>
-    <string name="Button_div"><![CDATA[/]]></string>
+    <string name="Button_sqrt">√</string>
+    <string name="Button_div">÷</string>
     <string name="Button_1">1</string>
     <string name="Button_2">2</string>
     <string name="Button_3">3</string>
@@ -14,7 +14,7 @@
     <string name="Button_8">8</string>
     <string name="Button_9">9</string>
     <string name="Button_0">0</string>
-    <string name="Button_mul"><![CDATA[*]]></string>
+    <string name="Button_mul">×</string>
     <string name="Button_minus"><![CDATA[-]]></string>
     <string name="Button_plus"><![CDATA[+]]></string>
     <string name="Button_point"><![CDATA[.]]></string>
