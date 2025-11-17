@@ -35,15 +35,23 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textViewHistory"
+        <ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-
-            android:layout_margin="@dimen/_Margin_1"
             android:layout_weight="1"
-            android:textSize="@dimen/_TextViewDim"
-            tools:text=" 2х2=4 \n 100500х2=201000"/>
+            android:layout_margin="@dimen/_Margin_1"
+            android:scrollbars="vertical"
+            android:fillViewport="true">
+
+            <TextView
+                android:id="@+id/textViewHistory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_TextViewDim"
+                tools:text=" 2х2=4 \n 100500х2=201000"/>
+
+        </ScrollView>
 
         <TableLayout
             android:id="@+id/table"

@@ -3,6 +3,7 @@ package com.example.hw_08_krylov_as;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.EditText;
 import androidx.annotation.NonNull;
@@ -19,6 +20,8 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     private EditText display;
+
+    private ScrollView scrollView;
 
     private TextView displayHistory;
 
@@ -73,16 +76,16 @@ public class MainActivity extends AppCompatActivity {
         double result = 0;
 
         switch (state.getOperation()) {
-            case "Plus":
+            case " + ":
                 result = state.getPreviousNumber() + currentNum;
                 break;
-            case "Minus":
+            case " - ":
                 result = state.getPreviousNumber() - currentNum;
                 break;
-            case "Multiply":
+            case " x ":
                 result = state.getPreviousNumber() * currentNum;
                 break;
-            case "Divide":
+            case " / ":
                 if (currentNum != 0) {
                     result = state.getPreviousNumber() / currentNum;
                 } else {
@@ -94,7 +97,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
-        double roundedResult = Math.round(result * 10000000000d) / 10000000000d;
+
+        double roundedResult = Math.round(result * 100000000d) / 100000000d;
 
         if (roundedResult == (int) roundedResult) {
             state.setCurrentInput(String.valueOf((int)roundedResult));
@@ -102,8 +106,48 @@ public class MainActivity extends AppCompatActivity {
         else {
             state.setCurrentInput(String.valueOf(roundedResult));
         }
+
+        String tempHistory = state.getHistory();
+
+
+        String firstNumber = "";
+        String secondNumber = "";
+
+        if (state.getPreviousNumber() == (int) state.getPreviousNumber()) {
+            firstNumber = String.valueOf((int)state.getPreviousNumber());
+        }
+        else {
+            firstNumber = String.valueOf(state.getPreviousNumber());
+        }
+
+        if (currentNum == (int) currentNum) {
+           secondNumber = String.valueOf((int)currentNum);
+        }
+        else {
+           secondNumber = String.valueOf(currentNum);
+        }
+
+
+        tempHistory = tempHistory + firstNumber +
+                state.getOperation() + secondNumber + " =" + "\n" + "= " +
+                state.getCurrentInput() + "\n" + "\n";
+        state.setHistory(tempHistory);
+        displayHistory.setText(state.getHistory());
+        scrollToBottom();
+
         state.setPreviousNumber(roundedResult);
         display.setText(state.getCurrentInput());
+    }
+
+    private void scrollToBottom() {
+        if (scrollView != null) {
+            scrollView.post(new Runnable() {
+                @Override
+                public void run() {
+                    scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                }
+            });
+        }
     }
 
 
@@ -117,7 +161,9 @@ public class MainActivity extends AppCompatActivity {
                 state.setPreviousNumber(0);
                 state.setOperation("none");
                 state.setIsNewInput(0);
+                state.setHistory("");
                 display.setText(state.getCurrentInput());
+                displayHistory.setText(state.getHistory());
             }
         });
     }
@@ -133,7 +179,8 @@ public class MainActivity extends AppCompatActivity {
                     state.setIsNewInput(0);
                 }
                 if (!state.getCurrentInput().isEmpty()){
-                    state.setCurrentInput(state.getCurrentInput().substring(0, state.getCurrentInput().length() - 1));
+                    state.setCurrentInput(state.getCurrentInput().substring(0,
+                            state.getCurrentInput().length() - 1));
                     if (state.getCurrentInput().isEmpty()) {
                         state.setCurrentInput("0");
                     }
@@ -161,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
         Button buttonDivide = findViewById(R.id.buttonDivide);
         buttonDivide.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { onOperationButtonClick("Divide");
+            public void onClick(View v) { onOperationButtonClick(" / ");
             }
         });
     }
@@ -200,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
         Button buttonDivide = findViewById(R.id.buttonMultiply);
         buttonDivide.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {onOperationButtonClick("Multiply");
+            public void onClick(View v) {onOperationButtonClick(" x ");
             }
         });
     }
@@ -239,7 +286,7 @@ public class MainActivity extends AppCompatActivity {
         Button buttonDivide = findViewById(R.id.buttonMinus);
         buttonDivide.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {onOperationButtonClick("Minus");
+            public void onClick(View v) {onOperationButtonClick(" - ");
 
 
             }
@@ -280,7 +327,7 @@ public class MainActivity extends AppCompatActivity {
         Button buttonDivide = findViewById(R.id.buttonPlus);
         buttonDivide.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {onOperationButtonClick("Plus");
+            public void onClick(View v) {onOperationButtonClick(" + ");
             }
         });
     }
@@ -347,6 +394,7 @@ public class MainActivity extends AppCompatActivity {
     private void initView() {
         display = findViewById(R.id.editTextNumberDecimal);
         displayHistory = findViewById(R.id.textViewHistory);
+        scrollView = findViewById(R.id.scrollView);
 
         initButtonClearClickListener();
         initButtonBackSpaceClickListener();
