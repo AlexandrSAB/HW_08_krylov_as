@@ -29,7 +29,11 @@
         android:textSize="@dimen/_EditTextDim"
         android:gravity="end"
         tools:text="100500"
-        android:inputType="numberDecimal"/>
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:inputType="numberDecimal"
+
+        />
 
 
     <TableLayout

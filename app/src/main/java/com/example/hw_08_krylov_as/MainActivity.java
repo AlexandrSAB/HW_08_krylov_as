@@ -40,16 +40,69 @@ public class MainActivity extends AppCompatActivity {
         initView();
     }
 
-
-
-
     private void onNumberButtonClick(String number) {
+        if (state.getIsNewInput() == 1) {
+            state.setCurrentInput("0");
+            state.setIsNewInput(0);
+        }
+
         if (state.getCurrentInput().equals("0")) {
             state.setCurrentInput(number);
         }
         else {
             state.setCurrentInput(state.getCurrentInput() + number);
         }
+        display.setText(state.getCurrentInput());
+    }
+
+    private void onOperationButtonClick(String operation) {
+        if (!state.getOperation().equals("none")) {
+            calculateResult();
+        }
+        else {
+            state.setPreviousNumber(Double.parseDouble(state.getCurrentInput()));
+            display.setText(state.getCurrentInput());
+        }
+        state.setOperation(operation);
+        state.setIsNewInput(1);
+    }
+
+    private void calculateResult() {
+
+        double currentNum = Double.parseDouble(state.getCurrentInput());
+        double result = 0;
+
+        switch (state.getOperation()) {
+            case "Plus":
+                result = state.getPreviousNumber() + currentNum;
+                break;
+            case "Minus":
+                result = state.getPreviousNumber() - currentNum;
+                break;
+            case "Multiply":
+                result = state.getPreviousNumber() * currentNum;
+                break;
+            case "Divide":
+                if (currentNum != 0) {
+                    result = state.getPreviousNumber() / currentNum;
+                } else {
+                    state.setCurrentInput("Error");
+                    display.setText(state.getCurrentInput());
+                    state.setOperation("none");
+                    return;
+                }
+                break;
+        }
+
+        double roundedResult = Math.round(result * 10000000000d) / 10000000000d;
+
+        if (roundedResult == (int) roundedResult) {
+            state.setCurrentInput(String.valueOf((int)roundedResult));
+        }
+        else {
+            state.setCurrentInput(String.valueOf(roundedResult));
+        }
+        state.setPreviousNumber(roundedResult);
         display.setText(state.getCurrentInput());
     }
 
@@ -60,16 +113,25 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 state.setCurrentInput("0");
+                state.setHistory("");
+                state.setPreviousNumber(0);
+                state.setOperation("none");
+                state.setIsNewInput(0);
                 display.setText(state.getCurrentInput());
             }
         });
     }
+
 
     private void initButtonBackSpaceClickListener() {
         Button buttonBackSpace = findViewById(R.id.buttonBackSpace);
         buttonBackSpace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (state.getIsNewInput() == 1) {
+                    state.setCurrentInput("0");
+                    state.setIsNewInput(0);
+                }
                 if (!state.getCurrentInput().isEmpty()){
                     state.setCurrentInput(state.getCurrentInput().substring(0, state.getCurrentInput().length() - 1));
                     if (state.getCurrentInput().isEmpty()) {
@@ -86,8 +148,11 @@ public class MainActivity extends AppCompatActivity {
         buttonPercent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
+                double result = Double.parseDouble(state.getCurrentInput());
+                result = result / 100;
+                state.setCurrentInput(String.valueOf(result));
+                display.setText(state.getCurrentInput());
+                state.setIsNewInput(1);
             }
         });
     }
@@ -96,9 +161,7 @@ public class MainActivity extends AppCompatActivity {
         Button buttonDivide = findViewById(R.id.buttonDivide);
         buttonDivide.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
-
+            public void onClick(View v) { onOperationButtonClick("Divide");
             }
         });
     }
@@ -133,6 +196,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void initButtonMultiplyClickListener() {
+        Button buttonDivide = findViewById(R.id.buttonMultiply);
+        buttonDivide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {onOperationButtonClick("Multiply");
+            }
+        });
+    }
+
     private void initButton4ClickListener() {
         Button button4 = findViewById(R.id.button4);
         button4.setOnClickListener(new View.OnClickListener() {
@@ -159,6 +231,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onNumberButtonClick("6");
+            }
+        });
+    }
+
+    private void initButtonMinusClickListener() {
+        Button buttonDivide = findViewById(R.id.buttonMinus);
+        buttonDivide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {onOperationButtonClick("Minus");
+
+
             }
         });
     }
@@ -193,6 +276,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void initButtonPlusClickListener() {
+        Button buttonDivide = findViewById(R.id.buttonPlus);
+        buttonDivide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {onOperationButtonClick("Plus");
+            }
+        });
+    }
+
     private void initButton0ClickListener() {
         Button button0 = findViewById(R.id.button0);
         button0.setOnClickListener(new View.OnClickListener() {
@@ -214,6 +306,20 @@ public class MainActivity extends AppCompatActivity {
                 if (!state.getCurrentInput().contains(".")) {
                     onNumberButtonClick(".");
                 }
+            }
+        });
+    }
+
+    private void initButtonEqualsClickListener() {
+        Button buttonDivide = findViewById(R.id.buttonEquals);
+        buttonDivide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!state.getOperation().equals("none")) {
+                    calculateResult();
+                }
+                state.setOperation("none");
+                state.setIsNewInput(1);
             }
         });
     }
@@ -257,10 +363,10 @@ public class MainActivity extends AppCompatActivity {
         initButton9ClickListener();
         initButton0ClickListener();
         initButtonPointClickListener();
-/*        initButtonMultiplyClickListener();
+        initButtonMultiplyClickListener();
         initButtonMinusClickListener();
         initButtonPlusClickListener();
-        initButtonEqualsClickListener();*/
+        initButtonEqualsClickListener();
 
     }
 }
