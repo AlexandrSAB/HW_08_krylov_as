@@ -15,27 +15,29 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.text.HtmlCompat;
 
+import com.example.hw_08_krylov_as.databinding.ActivityMainBinding;
+
 import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private EditText display;
-
     private ScrollView scrollView;
-
     private TextView displayHistory;
-
     private CalculatorState state;
-
     private static final String STATE_CALCULATOR = "calculator_state";
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main, (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         state = new CalculatorState();
         initView();
     }
+
 
     private void onNumberButtonClick(String number) {
         if (state.getIsNewInput() == 1) {
@@ -159,8 +162,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void initButtonClearClickListener() {
-        Button ButtonClear = findViewById(R.id.buttonClear);
-        ButtonClear.setOnClickListener(new View.OnClickListener() {
+        binding.buttonClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 state.setCurrentInput("0");
@@ -177,8 +179,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void initButtonBackSpaceClickListener() {
-        Button buttonBackSpace = findViewById(R.id.buttonBackSpace);
-        buttonBackSpace.setOnClickListener(new View.OnClickListener() {
+        binding.buttonBackSpace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (state.getIsNewInput() == 1) {
@@ -198,8 +199,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initButtonSqrtClickListener() {
-        Button buttonPercent = findViewById(R.id.buttonPercent);
-        buttonPercent.setOnClickListener(new View.OnClickListener() {
+        binding.buttonPercent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 double result = Double.parseDouble(state.getCurrentInput());
@@ -235,8 +235,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void initButtonDivideClickListener() {
-        Button buttonDivide = findViewById(R.id.buttonDivide);
-        buttonDivide.setOnClickListener(new View.OnClickListener() {
+        binding.buttonDivide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { onOperationButtonClick(" / ");
             }
@@ -244,8 +243,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initButton1ClickListener() {
-        Button button1 = findViewById(R.id.button1);
-        button1.setOnClickListener(new View.OnClickListener() {
+        binding.button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onNumberButtonClick("1");
@@ -254,8 +252,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initButton2ClickListener() {
-        Button button2 = findViewById(R.id.button2);
-        button2.setOnClickListener(new View.OnClickListener() {
+        binding.button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onNumberButtonClick("2");
@@ -264,8 +261,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initButton3ClickListener() {
-        Button button3 = findViewById(R.id.button3);
-        button3.setOnClickListener(new View.OnClickListener() {
+        binding.button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onNumberButtonClick("3");
@@ -274,8 +270,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initButtonMultiplyClickListener() {
-        Button buttonDivide = findViewById(R.id.buttonMultiply);
-        buttonDivide.setOnClickListener(new View.OnClickListener() {
+        binding.buttonMultiply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {onOperationButtonClick(" x ");
             }
@@ -283,8 +278,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initButton4ClickListener() {
-        Button button4 = findViewById(R.id.button4);
-        button4.setOnClickListener(new View.OnClickListener() {
+        binding.button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onNumberButtonClick("4");
@@ -293,8 +287,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initButton5ClickListener() {
-        Button button5 = findViewById(R.id.button5);
-        button5.setOnClickListener(new View.OnClickListener() {
+        binding.button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onNumberButtonClick("5");
@@ -303,8 +296,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initButton6ClickListener() {
-        Button button6 = findViewById(R.id.button6);
-        button6.setOnClickListener(new View.OnClickListener() {
+        binding.button6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onNumberButtonClick("6");
@@ -313,8 +305,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initButtonMinusClickListener() {
-        Button buttonDivide = findViewById(R.id.buttonMinus);
-        buttonDivide.setOnClickListener(new View.OnClickListener() {
+        binding.buttonMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {onOperationButtonClick(" - ");
 
@@ -324,8 +315,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initButton7ClickListener() {
-        Button button7 = findViewById(R.id.button7);
-        button7.setOnClickListener(new View.OnClickListener() {
+        binding.button7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onNumberButtonClick("7");
@@ -334,8 +324,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initButton8ClickListener() {
-        Button button8 = findViewById(R.id.button8);
-        button8.setOnClickListener(new View.OnClickListener() {
+        binding.button8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onNumberButtonClick("8");
@@ -344,8 +333,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initButton9ClickListener() {
-        Button button9 = findViewById(R.id.button9);
-        button9.setOnClickListener(new View.OnClickListener() {
+        binding.button9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onNumberButtonClick("9");
@@ -354,8 +342,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initButtonPlusClickListener() {
-        Button buttonDivide = findViewById(R.id.buttonPlus);
-        buttonDivide.setOnClickListener(new View.OnClickListener() {
+        binding.buttonPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {onOperationButtonClick(" + ");
             }
@@ -363,8 +350,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initButton0ClickListener() {
-        Button button0 = findViewById(R.id.button0);
-        button0.setOnClickListener(new View.OnClickListener() {
+        binding.button0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onNumberButtonClick("0");
@@ -373,8 +359,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initButtonPointClickListener() {
-        Button buttonPoint = findViewById(R.id.buttonPoint);
-        buttonPoint.setOnClickListener(new View.OnClickListener() {
+        binding.buttonPoint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (state.getCurrentInput().equals("0")) {
@@ -388,8 +373,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initButtonEqualsClickListener() {
-        Button buttonDivide = findViewById(R.id.buttonEquals);
-        buttonDivide.setOnClickListener(new View.OnClickListener() {
+        binding.buttonEquals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!state.getOperation().equals("none")) {
@@ -422,9 +406,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        display = findViewById(R.id.editTextNumberDecimal);
-        displayHistory = findViewById(R.id.textViewHistory);
-        scrollView = findViewById(R.id.scrollView);
+        display = binding.editTextNumberDecimal;
+        displayHistory = binding.textViewHistory;
+        scrollView = binding.scrollView;
 
         initButtonClearClickListener();
         initButtonBackSpaceClickListener();
