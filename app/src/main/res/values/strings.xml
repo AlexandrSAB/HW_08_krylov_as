@@ -19,5 +19,8 @@
     <string name="Button_plus"><![CDATA[+]]></string>
     <string name="Button_point"><![CDATA[.]]></string>
     <string name="Button_equals"><![CDATA[=]]></string>
+    <string name="_return">Оk</string>
+    <string name="_creatorName">Крылов Александр Сергеевич</string>
+    <string name="_creator">Разработчик:</string>
 
 </resources>

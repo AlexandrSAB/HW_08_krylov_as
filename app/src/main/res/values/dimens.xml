@@ -2,8 +2,12 @@
 <resources>
     <dimen name="_TextViewDim">40sp</dimen>
     <dimen name="_EditTextDim">50sp</dimen>
+    <dimen name="_Margin_0">20sp</dimen>
     <dimen name="_Margin_1">5sp</dimen>
     <dimen name="_Margin_2">1sp</dimen>
     <dimen name="_Margin_3">0sp</dimen>
     <dimen name="_ButtonTextSize">25sp</dimen>
+    <dimen name="_CreatorTextSize">25sp</dimen>
+    <dimen name="_ButtonHamburgerDim">30sp</dimen>
+
 </resources>

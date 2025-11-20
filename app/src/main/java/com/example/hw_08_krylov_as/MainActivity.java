@@ -1,5 +1,6 @@
 package com.example.hw_08_krylov_as;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         state = new CalculatorState();
         initView();
     }
@@ -160,6 +162,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void initButtonHamburgerClickListener() {
+        binding.buttonHamburger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent runCongratulations = new Intent(MainActivity.this, AboutActivity.class);
+                startActivity(runCongratulations);
+            }
+        });
+    }
+
 
     private void initButtonClearClickListener() {
         binding.buttonClear.setOnClickListener(new View.OnClickListener() {
@@ -173,6 +185,8 @@ public class MainActivity extends AppCompatActivity {
                 state.setHistory("");
                 display.setText(state.getCurrentInput());
                 displayHistory.setText(state.getHistory());
+                /*Intent runCongratulations = new Intent(MainActivity.this, AboutActivity.class);
+                startActivity(runCongratulations);*/
             }
         });
     }
@@ -429,6 +443,7 @@ public class MainActivity extends AppCompatActivity {
         initButtonMinusClickListener();
         initButtonPlusClickListener();
         initButtonEqualsClickListener();
+        initButtonHamburgerClickListener();
 
     }
 }
