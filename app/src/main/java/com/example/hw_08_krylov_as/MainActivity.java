@@ -2,6 +2,7 @@ package com.example.hw_08_krylov_as;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ScrollView;
@@ -12,16 +13,19 @@ import androidx.annotation.NonNull;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
+import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.text.HtmlCompat;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 
 import com.example.hw_08_krylov_as.databinding.ActivityMainBinding;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.Locale;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private EditText display;
     private ScrollView scrollView;
@@ -44,8 +48,21 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        binding.navigationView.setNavigationItemSelectedListener(this);
+
         state = new CalculatorState();
         initView();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.nav_about) {
+            Intent runCongratulations = new Intent(MainActivity.this, AboutActivity.class);
+            startActivity(runCongratulations);
+        }
+        binding.drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 
 
@@ -166,8 +183,7 @@ public class MainActivity extends AppCompatActivity {
         binding.buttonHamburger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent runCongratulations = new Intent(MainActivity.this, AboutActivity.class);
-                startActivity(runCongratulations);
+                binding.drawerLayout.openDrawer(GravityCompat.START);
             }
         });
     }

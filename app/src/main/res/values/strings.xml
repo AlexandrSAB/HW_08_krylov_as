@@ -22,5 +22,6 @@
     <string name="_return">Оk</string>
     <string name="_creatorName">Крылов Александр Сергеевич</string>
     <string name="_creator">Разработчик:</string>
+    <string name="_appName">Калькулятор</string>
 
 </resources>

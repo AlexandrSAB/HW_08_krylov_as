@@ -9,5 +9,6 @@
     <dimen name="_ButtonTextSize">25sp</dimen>
     <dimen name="_CreatorTextSize">25sp</dimen>
     <dimen name="_ButtonHamburgerDim">30sp</dimen>
+    <dimen name="_HeaderTextSize">25sp</dimen>
 
 </resources>
