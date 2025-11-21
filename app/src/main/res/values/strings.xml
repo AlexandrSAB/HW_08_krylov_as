@@ -23,5 +23,19 @@
     <string name="_creatorName">Крылов Александр Сергеевич</string>
     <string name="_creator">Разработчик:</string>
     <string name="_appName">Калькулятор</string>
+    <string name="_titleDialogFragment">Выполнить очистку?</string>
+    <string name="_messageDialogFragment">Поле ввода и история будут очищены</string>
+    <string name="Yes">Да</string>
+    <string name="No">Нет</string>
+    <string name="cleaning_is_canceled">Очистка отменена</string>
+    <string name="Cancel">Отмена</string>
+    <string name="Cleared">Очищено</string>
+
+    cleaning is canceled
+    cleared
+
+
+
+
 
 </resources>

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.EditText;
 import androidx.annotation.NonNull;
 
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -52,6 +53,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         state = new CalculatorState();
         initView();
+    }
+
+    private void showDialogFragment() {
+        new DialogFragmentClear().show(getSupportFragmentManager(), DialogFragmentClear.TAG);
     }
 
     @Override
@@ -193,18 +198,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         binding.buttonClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                state.setCurrentInput("0");
-                state.setHistory("");
-                state.setPreviousNumber(0);
-                state.setOperation("none");
-                state.setIsNewInput(0);
-                state.setHistory("");
-                display.setText(state.getCurrentInput());
-                displayHistory.setText(state.getHistory());
-                /*Intent runCongratulations = new Intent(MainActivity.this, AboutActivity.class);
-                startActivity(runCongratulations);*/
+                showDialogFragment();
             }
         });
+    }
+
+    void clearOperationPerform() {
+        state.setCurrentInput("0");
+        state.setHistory("");
+        state.setPreviousNumber(0);
+        state.setOperation("none");
+        state.setIsNewInput(0);
+        state.setHistory("");
+        display.setText(state.getCurrentInput());
+        displayHistory.setText(state.getHistory());
     }
 
 
